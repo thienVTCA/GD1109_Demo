@@ -13,10 +13,36 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     float bulletSpawnTime = 2;
     float bulletTime = 0;
+    [SerializeField]
+    float maxHealth = 20;
+    float health;
     // Start is called before the first frame update
     void Start()
     {
         bulletTime = 0;
+        health = maxHealth;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Contains("bulletPlayer"))
+        {
+            Debug.Log("enemy take dam");
+            health--;
+            Destroy(collision.gameObject);
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+        if (collision.gameObject.tag.Contains("player"))
+        {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag.Contains("finish",System.StringComparison.OrdinalIgnoreCase))
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
