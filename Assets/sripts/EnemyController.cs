@@ -16,9 +16,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     float maxHealth = 20;
     float health;
+    [SerializeField]
+    List<AudioClip> listSounds;
+    AudioSource soundSource;
+    [SerializeField]
+    GameObject hitEffectPrefab, explosionEffectPrefab;
+    
     // Start is called before the first frame update
     void Start()
     {
+        soundSource = GetComponent<AudioSource>();
         bulletTime = 0;
         health = maxHealth;
     }
@@ -27,16 +34,23 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.tag.Contains("bulletPlayer"))
         {
+            Instantiate(hitEffectPrefab, collision.transform.position, Quaternion.identity);
+            soundSource.clip = listSounds[0];
+            soundSource.Play();
             Debug.Log("enemy take dam");
             health--;
             Destroy(collision.gameObject);
             if (health <= 0)
             {
+                Instantiate(explosionEffectPrefab, collision.transform.position, Quaternion.identity);
+                UIManager.uIManagerInstance.UpdateEnemiesKilledNumber();
                 Destroy(gameObject);
             }
         }
-        if (collision.gameObject.tag.Contains("player"))
+        if (collision.gameObject.tag.Contains("Player"))
         {
+            Instantiate(explosionEffectPrefab, collision.transform.position, Quaternion.identity);
+            UIManager.uIManagerInstance.UpdateEnemiesKilledNumber();
             Destroy(gameObject);
         }
         if (collision.gameObject.tag.Contains("finish",System.StringComparison.OrdinalIgnoreCase))
@@ -55,6 +69,8 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
+            soundSource.clip = listSounds[1];
+            soundSource.Play();
             Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
             bulletTime = 0;
         }
