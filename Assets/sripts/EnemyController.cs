@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Contains("bulletPlayer"))
+        if (collision.gameObject.tag.Equals("bulletPlayer"))
         {
             Instantiate(hitEffectPrefab, collision.transform.position, Quaternion.identity);
             soundSource.clip = listSounds[0];
@@ -47,13 +47,13 @@ public class EnemyController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        if (collision.gameObject.tag.Contains("Player"))
+        if (collision.gameObject.tag.Equals("Player"))
         {
             Instantiate(explosionEffectPrefab, collision.transform.position, Quaternion.identity);
             UIManager.uIManagerInstance.UpdateEnemiesKilledNumber();
             Destroy(gameObject);
         }
-        if (collision.gameObject.tag.Contains("finish",System.StringComparison.OrdinalIgnoreCase))
+        if (collision.gameObject.tag.Equals("finish",System.StringComparison.OrdinalIgnoreCase))
         {
             Destroy(gameObject);
         }

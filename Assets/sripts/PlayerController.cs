@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag.Contains("bulletEnemy"))
+        if(collision.gameObject.tag.Equals("bulletEnemy"))
         {
             soundSource.clip = listSounds[0];
             soundSource.Play();
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        if (collision.gameObject.tag.Contains("enemy"))
+        if (collision.gameObject.tag.Equals("enemy"))
         {
             UIManager.uIManagerInstance.UpdatePlayerHealthSlider(0);
             Instantiate(explosionEffectPrefab, collision.transform.position, Quaternion.identity);

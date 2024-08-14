@@ -5,9 +5,7 @@ using UnityEngine;
 public class EnemiesSpawner : MonoBehaviour
 {
     [SerializeField]
-    List<Transform> listEnemiesPosTransforms;
-    [SerializeField]
-    GameObject enemyPrefab;
+    List<GameObject> listEnemiesWavesPrefabs;
     [SerializeField]
     float timeSpawnerMax = 2;
     float timeSpawner;
@@ -27,8 +25,8 @@ public class EnemiesSpawner : MonoBehaviour
         else
         {
             //create enemy
-            int posIndex = Random.RandomRange(0, listEnemiesPosTransforms.Count);
-            Instantiate(enemyPrefab, listEnemiesPosTransforms[posIndex].position, enemyPrefab.transform.rotation);
+            int posIndex = Random.RandomRange(0, listEnemiesWavesPrefabs.Count);
+            Instantiate(listEnemiesWavesPrefabs[posIndex], transform.position, listEnemiesWavesPrefabs[posIndex].transform.rotation);
             timeSpawner = 0;
         }
     }

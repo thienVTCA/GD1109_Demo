@@ -947,7 +947,7 @@ MonoBehaviour:
   listSounds:
   - {fileID: 8300000, guid: 95758db15f643f7448c2b086f4f3d765, type: 3}
   - {fileID: 8300000, guid: f0840740d8c82514d8c4fb8cb7b59693, type: 3}
-  hitEffectPrefab: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
+  hitEffectPrefab: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   explosionEffectPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
 --- !u!82 &7148229702553237976
 AudioSource:
