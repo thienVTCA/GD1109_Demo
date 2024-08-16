@@ -28,6 +28,16 @@ public class EnemyController : MonoBehaviour
         soundSource = GetComponent<AudioSource>();
         bulletTime = 0;
         health = maxHealth;
+        StartCoroutine(IEShooting());
+    }
+
+    IEnumerator IEShooting()
+    {
+        while(true)
+        {
+            Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
+            yield return new WaitForSeconds(bulletSpawnTime);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -63,16 +73,16 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.back * eneySpeed * Time.deltaTime);
-        if(bulletTime < bulletSpawnTime)
-        {
-            bulletTime += Time.deltaTime;
-        }
-        else
-        {
-            soundSource.clip = listSounds[1];
-            soundSource.Play();
-            Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
-            bulletTime = 0;
-        }
+        //if(bulletTime < bulletSpawnTime)
+        //{
+        //    bulletTime += Time.deltaTime;
+        //}
+        //else
+        //{
+        //    soundSource.clip = listSounds[1];
+        //    soundSource.Play();
+        //    Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
+        //    bulletTime = 0;
+        //}
     }
 }

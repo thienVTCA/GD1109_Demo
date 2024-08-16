@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     float moveSpeed = 2;
+    [SerializeField]
+    float bulletSpawnTime = 2;
     public GameObject bulletPrefab;
     [SerializeField]
     Transform gunTransform;
@@ -18,12 +20,27 @@ public class PlayerController : MonoBehaviour
     AudioSource soundSource;
     [SerializeField]
     GameObject hitEffectPrefab, explosionEffectPrefab;
-    
+
+    EnemyController[] listEnemies;
+
+
     void Start()
     {
         soundSource = GetComponent<AudioSource>();
         health = maxHealth;
         UIManager.uIManagerInstance.UpdatePlayerHealthSlider(1);
+        StartCoroutine(IEShooting());
+    }
+
+    IEnumerator IEShooting()
+    {
+        yield return new WaitUntil(() => listEnemies != null && listEnemies.Length > 0);
+        Debug.Log("IEShooting 1 player " + listEnemies.Length);
+        while (true)
+        {
+            Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
+            yield return new WaitForSeconds(bulletSpawnTime);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -61,11 +78,13 @@ public class PlayerController : MonoBehaviour
         var v = Input.GetAxis("Vertical");
         var movement = new Vector3(h, 0, v);
         transform.Translate(moveSpeed * movement * Time.deltaTime);
-        if(Input.GetMouseButtonDown(0))
-        {
-            soundSource.clip = listSounds[1];
-            soundSource.Play();
-            Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
-        }
+        //if(listEnemies == null)
+        listEnemies = GameObject.FindObjectsOfType<EnemyController>();
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    soundSource.clip = listSounds[1];
+        //    soundSource.Play();
+        //    Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
+        //}
     }
 }
