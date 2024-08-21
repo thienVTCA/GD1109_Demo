@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
         soundSource = GetComponent<AudioSource>();
         health = maxHealth;
         UIManager.uIManagerInstance.UpdatePlayerHealthSlider(1);
-        StartCoroutine(IEShooting());
+        //StartCoroutine(IEShooting());
     }
 
     IEnumerator IEShooting()
@@ -77,14 +77,14 @@ public class PlayerController : MonoBehaviour
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
         var movement = new Vector3(h, 0, v);
-        transform.Translate(moveSpeed * movement * Time.deltaTime);
+        transform.Translate(moveSpeed * movement * Time.deltaTime, Space.World);
         //if(listEnemies == null)
         listEnemies = GameObject.FindObjectsOfType<EnemyController>();
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    soundSource.clip = listSounds[1];
-        //    soundSource.Play();
-        //    Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
-        //}
+        if (Input.GetMouseButtonDown(0))
+        {
+            soundSource.clip = listSounds[1];
+            soundSource.Play();
+            Instantiate(bulletPrefab, gunTransform.position, bulletPrefab.transform.rotation);
+        }
     }
 }
