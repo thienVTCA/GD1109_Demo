@@ -30,6 +30,7 @@ public class MenuManager : MonoBehaviour
     IEnumerator IELoadSceneAsync()
     {
         menuAnimator.SetBool("StartGame", true);
+        //menuAnimator.SetTrigger("StartGame1");
         yield return new WaitForSeconds(1);
         // The Application loads the Scene in the background as the current Scene runs.
         // This is particularly good for creating loading screens.
